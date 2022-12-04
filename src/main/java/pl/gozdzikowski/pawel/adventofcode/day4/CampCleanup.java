@@ -32,12 +32,14 @@ public class CampCleanup {
 
     private ElfPair convertToElfPair(String line) {
         Matcher matcher = pairRegexp.matcher(line);
-        matcher.find();
+
+        if(!matcher.find())
+            throw new IllegalArgumentException(String.format("Illegal format of line %s", line));
 
         JobRange leftJobRange = new JobRange(parseInt(matcher.group(1)), parseInt(matcher.group(2)));
         JobRange rightJobRange = new JobRange(parseInt(matcher.group(3)), parseInt(matcher.group(4)));
 
-        return new ElfPair(leftJobRange, rightJobRange);
+        return ElfPair.of(leftJobRange, rightJobRange);
     }
 
     record ElfPair(
@@ -52,6 +54,10 @@ public class CampCleanup {
 
         public boolean overlapPartially() {
             return left.overlapPartially(right);
+        }
+
+        public static ElfPair of(JobRange left, JobRange right) {
+            return new ElfPair(left, right);
         }
 
     }

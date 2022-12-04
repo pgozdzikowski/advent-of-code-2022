@@ -3,7 +3,7 @@ package pl.gozdzikowski.pawel.adventofcode.shared.input;
 import java.util.List;
 
 public class ListInput implements Input {
-    List<String> inputs;
+    private List<String> inputs;
     public ListInput(List<String> inputs) {
         this.inputs = inputs;
     }
@@ -14,6 +14,6 @@ public class ListInput implements Input {
 
     @Override
     public String getContent() {
-        throw new UnsupportedOperationException("Unsupported operations");
+        throw new UnsupportedOperationException("Unsupported operation for list input");
     }
 }
