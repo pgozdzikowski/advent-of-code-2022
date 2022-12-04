@@ -1,8 +1,8 @@
 package pl.gozdzikowski.pawel.adventofcode.day3
 
-import pl.gozdzikowski.pawel.adventofcode.input.FileInput
-import pl.gozdzikowski.pawel.adventofcode.input.Input
-import pl.gozdzikowski.pawel.adventofcode.input.ListInput
+import pl.gozdzikowski.pawel.adventofcode.shared.input.FileInput
+import pl.gozdzikowski.pawel.adventofcode.shared.input.Input
+import pl.gozdzikowski.pawel.adventofcode.shared.input.ListInput
 import spock.lang.Specification
 
 class Day3Spec extends Specification {
@@ -34,7 +34,7 @@ class Day3Spec extends Specification {
         result == 7811
     }
 
-    def 'task2'() {
+    def 'should calculate unique items priorities for 3 rucksacks'() {
         given:
         Input input = new ListInput([
                 "vJrwpWtwJgWrhcsFMMfFFhFp",

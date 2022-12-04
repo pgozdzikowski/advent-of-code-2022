@@ -1,6 +1,6 @@
 package pl.gozdzikowski.pawel.adventofcode.day4;
 
-import pl.gozdzikowski.pawel.adventofcode.input.Input;
+import pl.gozdzikowski.pawel.adventofcode.shared.input.Input;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

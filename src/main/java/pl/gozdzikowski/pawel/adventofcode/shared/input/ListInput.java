@@ -1,6 +1,5 @@
-package pl.gozdzikowski.pawel.adventofcode.input;
+package pl.gozdzikowski.pawel.adventofcode.shared.input;
 
-import java.io.IOException;
 import java.util.List;
 
 public class ListInput implements Input {
@@ -15,6 +14,6 @@ public class ListInput implements Input {
 
     @Override
     public String getContent() {
-        throw new UnsupportedOperationException("Unsuported operations");
+        throw new UnsupportedOperationException("Unsupported operations");
     }
 }

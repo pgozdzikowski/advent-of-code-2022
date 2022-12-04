@@ -1,6 +1,6 @@
 package pl.gozdzikowski.pawel.adventofcode.day2;
 
-import pl.gozdzikowski.pawel.adventofcode.input.Input;
+import pl.gozdzikowski.pawel.adventofcode.shared.input.Input;
 
 import java.util.List;
 import java.util.Map;

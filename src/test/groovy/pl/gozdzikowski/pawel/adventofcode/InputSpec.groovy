@@ -1,7 +1,7 @@
 package pl.gozdzikowski.pawel.adventofcode
 
-import pl.gozdzikowski.pawel.adventofcode.input.FileInput
-import pl.gozdzikowski.pawel.adventofcode.input.Input
+import pl.gozdzikowski.pawel.adventofcode.shared.input.FileInput
+import pl.gozdzikowski.pawel.adventofcode.shared.input.Input
 import spock.lang.Specification
 
 class InputSpec extends Specification{

@@ -1,4 +1,4 @@
-package pl.gozdzikowski.pawel.adventofcode.input;
+package pl.gozdzikowski.pawel.adventofcode.shared.input;
 
 import java.io.IOException;
 import java.util.List;

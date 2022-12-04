@@ -1,6 +1,6 @@
 package pl.gozdzikowski.pawel.adventofcode.day1;
 
-import pl.gozdzikowski.pawel.adventofcode.input.Input;
+import pl.gozdzikowski.pawel.adventofcode.shared.input.Input;
 
 import java.util.ArrayList;
 import java.util.Comparator;

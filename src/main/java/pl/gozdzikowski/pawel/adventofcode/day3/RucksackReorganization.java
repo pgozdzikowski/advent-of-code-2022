@@ -1,6 +1,7 @@
 package pl.gozdzikowski.pawel.adventofcode.day3;
 
-import pl.gozdzikowski.pawel.adventofcode.input.Input;
+import pl.gozdzikowski.pawel.adventofcode.shared.collections.ListExt;
+import pl.gozdzikowski.pawel.adventofcode.shared.input.Input;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class RucksackReorganization {
     }
 
     public long calculatePrioritiesOfRucksackUniqueForThree(Input input) {
-        return partition(input.get(), 3)
+        return ListExt.partition(input.get(), 3)
                 .stream().mapToLong(this::calculateForSingleRucksackForThree)
                 .sum();
     }
@@ -54,14 +55,6 @@ public class RucksackReorganization {
     private Set<Character> intersectWithOther(Set<Character> accumulator, Set<Character> next) {
         accumulator.retainAll(next);
         return accumulator;
-    }
-
-    private List<List<String>> partition(List<String> toPartition, int window) {
-        List<List<String>> partitions = new ArrayList<>();
-        for (int i = 0; i < toPartition.size(); i += window) {
-            partitions.add(toPartition.subList(i, Math.min(i + window, toPartition.size())));
-        }
-        return partitions;
     }
 
     private List<Character> itemsInRucksack(String rucksack) {
