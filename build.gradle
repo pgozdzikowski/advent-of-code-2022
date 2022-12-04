@@ -1,0 +1,22 @@
+plugins {
+    id 'groovy'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-M2-groovy-3.0'
+    // overrides groovy 2.5.2 from spock that fails with JDK 11 (GROOVY-8727)
+    testImplementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.11'
+}
+
+test {
+    useJUnitPlatform()
+}
