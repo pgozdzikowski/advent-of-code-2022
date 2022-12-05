@@ -14,17 +14,17 @@ public class SupplyStacks {
     }
 
     public String getMessageFromStacksChangeOrder(String moves) {
-        String[] movesArray = moves.split("\\n");
-
-        Arrays.stream(movesArray).forEach((move) -> executeMove(move, this::onlyOneItemAtOnce));
-
-        return formatMessageFromStacks();
+        return convertToActionAndExecute(moves, this::onlyOneItemAtOnce);
     }
 
     public String getMessageFromStacksChangeOrderWithLeaveOrder(String moves) {
+        return convertToActionAndExecute(moves, this::manyItemsAtOnce);
+    }
+
+    private String convertToActionAndExecute(String moves, Consumer<ActionDescription> actionConsumer) {
         String[] movesArray = moves.split("\\n");
 
-        Arrays.stream(movesArray).forEach((move) -> executeMove(move, this::manyItemsAtOnce));
+        Arrays.stream(movesArray).forEach((move) -> executeMove(move, actionConsumer));
 
         return formatMessageFromStacks();
     }
