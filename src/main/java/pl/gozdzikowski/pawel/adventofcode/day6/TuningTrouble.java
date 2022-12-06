@@ -21,10 +21,10 @@ public class TuningTrouble {
 
     private int findPositionWithWindow(List<Character> characters, int window) {
         return IntStream.range(0, characters.size())
-                .mapToObj((current) -> Pair.of(current, new HashSet<>(characters.subList(current, Math.min(current + window, characters.size())))))
+                .mapToObj((current) -> Pair.of(current + window, new HashSet<>(characters.subList(current, Math.min(current + window, characters.size())))))
                 .filter((pair) -> pair.right().size() == window)
                 .findFirst()
-                .map((pair) -> pair.left() + window)
+                .map(Pair::left)
                 .orElseThrow(() -> new IllegalStateException("Unable to find sequence"));
     }
 
