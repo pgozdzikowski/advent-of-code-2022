@@ -23,7 +23,7 @@ move 1 from 1 to 2
         given:
         SupplyStacks supplyStacks = new SupplyStacks(SUPPLY_STACK_DEF)
         when:
-        def message = supplyStacks.getMessageFromStacksChangeOrder(MOVES)
+        def message = supplyStacks.getMessageFromStacksWithChangeOrder(MOVES)
         then:
         message == "CMZ"
     }
@@ -46,12 +46,12 @@ move 1 from 1 to 2
         Input input = new FileInput("day5.txt")
         def moves = input.getContent().split("\\n\\n")
         when:
-        def message = supplyStacks.getMessageFromStacksChangeOrder(moves[1])
+        def message = supplyStacks.getMessageFromStacksWithChangeOrder(moves[1])
         then:
         message == "SPFMVDTZT"
     }
 
-    def 'should create message from test supply stacks'() {
+    def 'should create message from test supply stacks with take many at once'() {
         given:
         SupplyStacks supplyStacks = new SupplyStacks(SUPPLY_STACK_DEF)
         when:
@@ -82,6 +82,5 @@ move 1 from 1 to 2
         then:
         message == "ZFSJBPRFP"
     }
-
 
 }

@@ -13,7 +13,7 @@ public class SupplyStacks {
         this.supplyStacks = supplyStacks;
     }
 
-    public String getMessageFromStacksChangeOrder(String moves) {
+    public String getMessageFromStacksWithChangeOrder(String moves) {
         return convertToActionAndExecute(moves, this::onlyOneItemAtOnce);
     }
 
