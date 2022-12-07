@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class ElfFileSystem {
-    sealed static class ElfFileSystemObject permits ElfDeviceDirectory, ElfDeviceFile {
+public class ElvesFileSystem {
+    sealed static class ElvesFileSystemObject permits ElvesDeviceDirectory, ElvesDeviceFile {
         private String name;
 
-        public ElfFileSystemObject(String name) {
+        public ElvesFileSystemObject(String name) {
             this.name = name;
         }
 
@@ -21,10 +20,10 @@ public class ElfFileSystem {
 
     }
 
-    static final class ElfDeviceFile extends ElfFileSystemObject {
+    static final class ElvesDeviceFile extends ElvesFileSystemObject {
         private Long size;
 
-        public ElfDeviceFile(String name, Long size) {
+        public ElvesDeviceFile(String name, Long size) {
             super(name);
             this.size = size;
         }
@@ -34,20 +33,20 @@ public class ElfFileSystem {
         }
     }
 
-    static final class ElfDeviceDirectory extends ElfFileSystemObject {
+    static final class ElvesDeviceDirectory extends ElvesFileSystemObject {
 
-        private ElfDeviceDirectory parent;
+        private ElvesDeviceDirectory parent;
         private String absolutePath;
 
-        private List<ElfFileSystemObject> directories;
+        private List<ElvesFileSystemObject> directories;
 
-        public ElfDeviceDirectory(String name) {
+        public ElvesDeviceDirectory(String name) {
             super(name);
             this.directories = new ArrayList<>();
             this.absolutePath = name;
         }
 
-        public ElfDeviceDirectory(String name, ElfDeviceDirectory parent) {
+        public ElvesDeviceDirectory(String name, ElvesDeviceDirectory parent) {
             super(name);
             Objects.requireNonNull(parent);
             this.parent = parent;
@@ -55,11 +54,11 @@ public class ElfFileSystem {
             this.absolutePath = parent.absolutePath + "/" + name;
         }
 
-        public ElfDeviceDirectory getParent() {
+        public ElvesDeviceDirectory getParent() {
             return parent;
         }
 
-        public List<ElfFileSystemObject> getDirectories() {
+        public List<ElvesFileSystemObject> getDirectories() {
             return directories;
         }
 
@@ -67,14 +66,14 @@ public class ElfFileSystem {
             return absolutePath;
         }
 
-        public void addFileSystemObject(ElfFileSystemObject elfFileSystemObject) {
-            getDirectory(elfFileSystemObject.getName()).ifPresentOrElse(
+        public void addFileSystemObject(ElvesFileSystemObject elvesFileSystemObject) {
+            getDirectory(elvesFileSystemObject.getName()).ifPresentOrElse(
                     Function.identity()::apply,
-                    () -> this.directories.add(elfFileSystemObject)
+                    () -> this.directories.add(elvesFileSystemObject)
             );
         }
 
-        public Optional<ElfFileSystemObject> getDirectory(String directory) {
+        public Optional<ElvesFileSystemObject> getDirectory(String directory) {
             return this.directories.stream().filter((file) -> file.name.equals(directory))
                     .findFirst();
         }

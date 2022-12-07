@@ -39,7 +39,6 @@ class Day7Spec extends Specification {
         size == 95437
     }
 
-
     def 'file inout'() {
         Input input = new FileInput('day7.txt')
         when:
