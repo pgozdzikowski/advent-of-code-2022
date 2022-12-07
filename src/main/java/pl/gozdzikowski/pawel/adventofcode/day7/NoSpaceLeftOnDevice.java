@@ -39,17 +39,17 @@ public class NoSpaceLeftOnDevice {
                 .get();
     }
 
-    private Long walkThroughFilesystem(ElvesFileSystemObject currDir, Map<String, Long> directoryPathToSize) {
+    private Long walkThroughFilesystem(ElvesFileSystemObject fileSystemObject, Map<String, Long> directoryPathToSize) {
         Long dirSize = 0L;
-        if (currDir instanceof ElvesDeviceDirectory d) {
+        if (fileSystemObject instanceof ElvesDeviceDirectory d) {
             for (ElvesFileSystemObject o : d.getDirectories()) {
                 dirSize += walkThroughFilesystem(o, directoryPathToSize);
             }
             directoryPathToSize.put(d.getAbsolutePath(), dirSize);
-        } else if (currDir instanceof ElvesDeviceFile f) {
+        } else if (fileSystemObject instanceof ElvesDeviceFile f) {
             return f.getSize();
         } else {
-            throw new IllegalStateException("Not known file object type");
+            throw new IllegalStateException("Not known file object type" + fileSystemObject);
         }
 
         return dirSize;

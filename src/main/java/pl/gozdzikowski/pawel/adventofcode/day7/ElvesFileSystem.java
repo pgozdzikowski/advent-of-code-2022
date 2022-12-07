@@ -17,7 +17,6 @@ public class ElvesFileSystem {
         public String getName() {
             return name;
         }
-
     }
 
     static final class ElvesDeviceFile extends ElvesFileSystemObject {
@@ -30,6 +29,14 @@ public class ElvesFileSystem {
 
         public Long getSize() {
             return size;
+        }
+
+        @Override
+        public String toString() {
+            return "ElvesDeviceFile{" +
+                    "size=" + size +
+                    ", name='" + getName() + '\'' +
+                    '}';
         }
     }
 
@@ -76,6 +83,14 @@ public class ElvesFileSystem {
         public Optional<ElvesFileSystemObject> getDirectory(String directory) {
             return this.directories.stream().filter((file) -> file.name.equals(directory))
                     .findFirst();
+        }
+
+        @Override
+        public String toString() {
+            return "ElvesDeviceDirectory{" +
+                    "absolutePath='" + absolutePath + '\'' +
+                    ", name='" + getName() + '\'' +
+                    '}';
         }
     }
 }
