@@ -8,7 +8,7 @@ class Day10Spec extends Specification {
 
     CathodeRayTube cathodeRayTube = new CathodeRayTube()
 
-    def 'should calculate properly for sample'() {
+    def 'should calculate signal strength for sample at given #cycles'() {
         given:
         Input input = new FileInput('day10sample.txt')
         expect:
@@ -23,7 +23,7 @@ class Day10Spec extends Specification {
         [220]    || 3960
     }
 
-    def 'should probes sum'() {
+    def 'should sum probes [20, 60, 100, 140, 180, 220]'() {
         given:
         Input input = new FileInput('day10sample.txt')
         expect:
