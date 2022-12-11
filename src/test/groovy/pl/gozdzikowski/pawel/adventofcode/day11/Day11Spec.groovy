@@ -87,13 +87,4 @@ class Day11Spec extends Specification {
         taskConfig   || 62491
     }
 
-    def 'should simulate'() {
-        given:
-        MonkeyInTheMiddle monkeyInTheMiddle = new MonkeyInTheMiddle(config);
-        expect:
-        result == monkeyInTheMiddle.findProductOfMultiplyOfMostActiveMonkeys(10000, {it})
-        where:
-        config       || result
-        sampleConfig || 10605L
-    }
 }
