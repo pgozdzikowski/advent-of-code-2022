@@ -6,7 +6,7 @@ import spock.lang.Specification
 
 class Day12Spec extends Specification {
 
-    def 'should calculate lowest climb to exit'() {
+    def 'should calculate lowest steps to exit'() {
         given:
         def algorithm = """Sabqponm
 abcryxxl
@@ -15,7 +15,7 @@ acctuvwj
 abdefghi"""
         HillClimbingAlgorithm hillClimbingAlgorithm = new HillClimbingAlgorithm(convertStringToCharArray(algorithm) as char[][])
         when:
-        long result = hillClimbingAlgorithm.howManyStepsToExit()
+        long result = hillClimbingAlgorithm.howManyStepsToExitFromStartingPoint()
         then:
         result == 31
     }
@@ -25,9 +25,33 @@ abdefghi"""
         Input input = new FileInput('day12.txt')
         HillClimbingAlgorithm hillClimbingAlgorithm = new HillClimbingAlgorithm(convertStringToCharArray(input.getContent()) as char[][])
         when:
-        long result = hillClimbingAlgorithm.howManyStepsToExit()
+        long result = hillClimbingAlgorithm.howManyStepsToExitFromStartingPoint()
         then:
-        result == 31
+        result == 481
+    }
+
+    def 'should find shortest path from lowest elevation'() {
+        given:
+        def algorithm = """Sabqponm
+abcryxxl
+accszExk
+acctuvwj
+abdefghi"""
+        HillClimbingAlgorithm hillClimbingAlgorithm = new HillClimbingAlgorithm(convertStringToCharArray(algorithm) as char[][])
+        when:
+        long result = hillClimbingAlgorithm.minimalStepsFromLowestElevation()
+        then:
+        result == 29
+    }
+
+    def 'task results part2'() {
+        given:
+        Input input = new FileInput('day12.txt')
+        HillClimbingAlgorithm hillClimbingAlgorithm = new HillClimbingAlgorithm(convertStringToCharArray(input.getContent()) as char[][])
+        when:
+        long result = hillClimbingAlgorithm.minimalStepsFromLowestElevation()
+        then:
+        result == 480
     }
 
     def convertStringToCharArray(String content) {

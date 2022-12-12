@@ -4,9 +4,9 @@ import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 
-import static pl.gozdzikowski.pawel.adventofcode.day11.MonkeyInTheMiddle.*
+import static MonkeyInTheMiddlePart2.*
 
-class Day11Spec extends Specification {
+class Day11SpecPart2 extends Specification {
 
     @Shared
     def sampleConfig = [
@@ -15,7 +15,7 @@ class Day11Spec extends Specification {
                     { calc -> isDivisible(calc, 23) ? 2 : 3 }
             ),
             new Monkey(
-                    new MonkeyInTheMiddle.MonkeyOperation(6, ArithmeticOperation.ADD),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(6, ArithmeticOperation.ADD),
                     { calc -> isDivisible(calc, 19) ? 2 : 0 }
             ),
             new Monkey(
@@ -23,7 +23,7 @@ class Day11Spec extends Specification {
                     { calc -> isDivisible(calc, 13) ? 1 : 3 }
             ),
             new Monkey(
-                    new MonkeyInTheMiddle.MonkeyOperation(3, ArithmeticOperation.ADD),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(3, ArithmeticOperation.ADD),
                     { calc -> isDivisible(calc, 17) ? 0 : 1 }
             )
 
@@ -38,32 +38,32 @@ class Day11Spec extends Specification {
 
     def taskConfig = [
             new Monkey(
-                    new MonkeyInTheMiddle.MonkeyOperation(3, ArithmeticOperation.MUL),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(3, ArithmeticOperation.MUL),
                     { calc -> isDivisible(calc , 11) ? 7 : 2 }
             ),
             new Monkey(
-                    new MonkeyInTheMiddle.MonkeyOperation(3,ArithmeticOperation.ADD),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(3,ArithmeticOperation.ADD),
                     { calc -> isDivisible(calc, 2) ? 2 : 0 }
             ),
             new Monkey(
-                    new MonkeyInTheMiddle.MonkeyOperation(5, ArithmeticOperation.ADD),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(5, ArithmeticOperation.ADD),
                     { calc -> isDivisible(calc, 5) ? 7 : 5 }
             ),
             new Monkey(
-                    new MonkeyInTheMiddle.MonkeyOperation(19, ArithmeticOperation.MUL),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(19, ArithmeticOperation.MUL),
                     { calc -> isDivisible(calc, 7) ? 6 : 4 }
             ),
             new Monkey(
-                    new MonkeyInTheMiddle.MonkeyOperation(1, ArithmeticOperation.ADD),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(1, ArithmeticOperation.ADD),
                     { calc -> isDivisible(calc, 17) ? 6 : 1 }
             ),
             new Monkey(
-                    new MonkeyInTheMiddle.MonkeyOperation(2, ArithmeticOperation.ADD),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(2, ArithmeticOperation.ADD),
                     { calc -> isDivisible(calc, 19) ? 4 : 3 }
             ),
             new Monkey(
 
-                    new MonkeyInTheMiddle.MonkeyOperation(0, ArithmeticOperation.POW),
+                    new MonkeyInTheMiddlePart2.MonkeyOperation(0, ArithmeticOperation.POW),
                     { calc -> isDivisible(calc, 3) ? 0 : 1 }
             ),
             new Monkey(
@@ -85,21 +85,20 @@ class Day11Spec extends Specification {
 
     def 'should simulate and find product of multiply of most active monkeys'() {
         given:
-        MonkeyInTheMiddle monkeyInTheMiddle = new MonkeyInTheMiddle(sampleConfig as Monkey[])
+        MonkeyInTheMiddlePart2 monkeyInTheMiddle = new MonkeyInTheMiddlePart2(sampleConfig as Monkey[])
         expect:
         result == monkeyInTheMiddle.findProductOfMultiplyOfMostActiveMonkeys(iterations, initialStateOfSample)
         where:
         result         || iterations
         99L * 103      || 20
         5204L * 5192   || 1000
-        52166L * 52013 || 10000
     }
 
 
     @Ignore
     def 'task results'() {
         given:
-        MonkeyInTheMiddle monkeyInTheMiddle = new MonkeyInTheMiddle(taskConfig as Monkey[])
+        MonkeyInTheMiddlePart2 monkeyInTheMiddle = new MonkeyInTheMiddlePart2(taskConfig as Monkey[])
         expect:
         result == monkeyInTheMiddle.findProductOfMultiplyOfMostActiveMonkeys(iterations, initialStateOfMonkeyTask)
         where:

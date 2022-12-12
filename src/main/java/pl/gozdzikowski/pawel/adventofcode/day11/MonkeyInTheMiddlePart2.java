@@ -1,15 +1,14 @@
 package pl.gozdzikowski.pawel.adventofcode.day11;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.function.Function;
 
-public class MonkeyInTheMiddle {
+public class MonkeyInTheMiddlePart2 {
 
     private Monkey[] monkeys;
 
-    public MonkeyInTheMiddle(Monkey[] monkeys) {
+    public MonkeyInTheMiddlePart2(Monkey[] monkeys) {
         this.monkeys = monkeys;
     }
 
