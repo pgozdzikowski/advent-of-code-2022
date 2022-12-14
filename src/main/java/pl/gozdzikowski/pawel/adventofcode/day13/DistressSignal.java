@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import static pl.gozdzikowski.pawel.adventofcode.day13.DistressSignal.ComparisionResult.*;
+import static pl.gozdzikowski.pawel.adventofcode.day13.DistressSignal.ComparisionResult.INORDER;
+
 public class DistressSignal {
     public static final Holder FIRST_DIVIDER = new ListHolder(List.of(new ListHolder(List.of(new IntegerHolder(2)))));
     public static final Holder SECOND_DIVIDER = new ListHolder(List.of(new ListHolder(List.of(new IntegerHolder(6)))));
@@ -24,6 +27,7 @@ public class DistressSignal {
                 )
                 .sorted(Comparator.reverseOrder())
                 .toList();
+
         return (long) (holders.indexOf(FIRST_DIVIDER) + 1) * (holders.indexOf(SECOND_DIVIDER) + 1);
     }
 
@@ -32,18 +36,18 @@ public class DistressSignal {
             Holder right
     ) {
         boolean isInRightOrder() {
-            return isInRightOrder(left, right) == ComparisionResult.INORDER;
+            return isInRightOrder(left, right) == INORDER;
         }
 
         ComparisionResult isInRightOrder(Holder left, Holder right) {
             if (left instanceof IntegerHolder leftInteger) {
                 if (right instanceof IntegerHolder rightInteger) {
                     if (leftInteger.getValue() < rightInteger.getValue()) {
-                        return ComparisionResult.INORDER;
+                        return INORDER;
                     } else if (leftInteger.getValue().equals(rightInteger.getValue())) {
-                        return ComparisionResult.CONTINUE;
+                        return CONTINUE;
                     } else {
-                        return ComparisionResult.NOTINORDER;
+                        return NOTINORDER;
                     }
                 } else {
                     return isInRightOrder(new ListHolder(List.of(left)), right);
@@ -54,20 +58,26 @@ public class DistressSignal {
                 } else {
                     ListHolder rightListHolder = (ListHolder) right;
                     int iterator;
-                    for (iterator = 0; iterator < Math.min(leftListHolder.getValues().size(), rightListHolder.getValues().size()); ++iterator) {
-                        ComparisionResult comparisionResult = isInRightOrder(leftListHolder.getValues().get(iterator), rightListHolder.getValues().get(iterator));
-                        if (comparisionResult == ComparisionResult.CONTINUE)
+                    int listSize = Math.min(leftListHolder.getValues().size(), rightListHolder.getValues().size());
+                    for (iterator = 0; iterator < listSize; ++iterator) {
+                        ComparisionResult comparisionResult = isInRightOrder(
+                                leftListHolder.getValues().get(iterator),
+                                rightListHolder.getValues().get(iterator)
+                        );
+
+                        if (comparisionResult == CONTINUE)
                             continue;
+
                         return comparisionResult;
                     }
 
                     if (leftListHolder.getValues().size() == rightListHolder.getValues().size())
-                        return ComparisionResult.CONTINUE;
+                        return CONTINUE;
 
-                    return iterator == leftListHolder.getValues().size() ? ComparisionResult.INORDER : ComparisionResult.NOTINORDER;
+                    return iterator == leftListHolder.getValues().size() ? INORDER : NOTINORDER;
                 }
             }
-            return ComparisionResult.INORDER;
+            return INORDER;
         }
     }
 
