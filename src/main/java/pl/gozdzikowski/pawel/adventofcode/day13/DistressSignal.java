@@ -1,10 +1,13 @@
 package pl.gozdzikowski.pawel.adventofcode.day13;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class DistressSignal {
-
+    public static final Holder FIRST_DIVIDER = new ListHolder(List.of(new ListHolder(List.of(new IntegerHolder(2)))));
+    public static final Holder SECOND_DIVIDER = new ListHolder(List.of(new ListHolder(List.of(new IntegerHolder(6)))));
 
     public long calculateInRightOrder(List<SignalPair> signalPairs) {
         return signalPairs.stream()
@@ -14,18 +17,34 @@ public class DistressSignal {
                 .sum();
     }
 
+    public long calculateIndexOfSortedDividerPacketsInRightOrder(List<SignalPair> signals, List<Holder> dividers) {
+        List<Holder> holders = Stream.concat(signals.stream()
+                                .flatMap((pair) -> Stream.of(pair.left, pair.right)),
+                        dividers.stream()
+                )
+                .sorted(Comparator.reverseOrder())
+                .toList();
+        return (long) (holders.indexOf(FIRST_DIVIDER) + 1) * (holders.indexOf(SECOND_DIVIDER) + 1);
+    }
+
     record SignalPair(
             Holder left,
             Holder right
     ) {
         boolean isInRightOrder() {
-            return isInRightOrder(left, right);
+            return isInRightOrder(left, right) == ComparisionResult.INORDER;
         }
 
-        boolean isInRightOrder(Holder left, Holder right) {
+        ComparisionResult isInRightOrder(Holder left, Holder right) {
             if (left instanceof IntegerHolder leftInteger) {
                 if (right instanceof IntegerHolder rightInteger) {
-                    return leftInteger.getValue() < rightInteger.getValue();
+                    if (leftInteger.getValue() < rightInteger.getValue()) {
+                        return ComparisionResult.INORDER;
+                    } else if (leftInteger.getValue().equals(rightInteger.getValue())) {
+                        return ComparisionResult.CONTINUE;
+                    } else {
+                        return ComparisionResult.NOTINORDER;
+                    }
                 } else {
                     return isInRightOrder(new ListHolder(List.of(left)), right);
                 }
@@ -36,20 +55,33 @@ public class DistressSignal {
                     ListHolder rightListHolder = (ListHolder) right;
                     int iterator;
                     for (iterator = 0; iterator < Math.min(leftListHolder.getValues().size(), rightListHolder.getValues().size()); ++iterator) {
-                        if (leftListHolder.getValues().get(iterator) instanceof IntegerHolder leftEl && rightListHolder.getValues().get(iterator) instanceof IntegerHolder rightEl
-                                && leftEl.equals(rightEl))
+                        ComparisionResult comparisionResult = isInRightOrder(leftListHolder.getValues().get(iterator), rightListHolder.getValues().get(iterator));
+                        if (comparisionResult == ComparisionResult.CONTINUE)
                             continue;
-                        return isInRightOrder(leftListHolder.getValues().get(iterator), rightListHolder.getValues().get(iterator));
+                        return comparisionResult;
                     }
-                    return iterator == leftListHolder.getValues().size();
+
+                    if (leftListHolder.getValues().size() == rightListHolder.getValues().size())
+                        return ComparisionResult.CONTINUE;
+
+                    return iterator == leftListHolder.getValues().size() ? ComparisionResult.INORDER : ComparisionResult.NOTINORDER;
                 }
             }
-            throw new IllegalStateException("Should not be here");
+            return ComparisionResult.INORDER;
         }
     }
 
 
-    static sealed class Holder permits IntegerHolder, ListHolder {
+    static sealed class Holder implements Comparable<Holder> permits IntegerHolder, ListHolder {
+        @Override
+        public int compareTo(Holder other) {
+            if(this == other)
+                return 0;
+
+            SignalPair signalPair = new SignalPair(this, other);
+
+            return signalPair.isInRightOrder() ? 1 : -1;
+        }
     }
 
     static final class IntegerHolder extends Holder {
@@ -110,7 +142,10 @@ public class DistressSignal {
         public String toString() {
             return values.toString().replaceAll(" ", "");
         }
+
     }
 
-
+    enum ComparisionResult {
+        INORDER, NOTINORDER, CONTINUE
+    }
 }
