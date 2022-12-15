@@ -5,9 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.util.stream.Stream.*;
 
 public class RegolithReservoir {
     static final Point STARTING_POINT = new Point(500, 0);
@@ -24,11 +21,10 @@ public class RegolithReservoir {
         Point sandPosition = new Point(500, 0);
 
         while (sandPosition.y < minYPoint.y) {
-            Set<Point> sandAndRocks = sandAndRocksPositions(rocks, finalSandsPositions);
-            if (sandAndRocks.contains(sandPosition.with(0, 1))) {
-                if (!sandAndRocks.contains(sandPosition.with(-1, 1))) {
+            if (sandOrRocksPositionsContains(rocks, finalSandsPositions, sandPosition.with(0, 1))) {
+                if (!sandOrRocksPositionsContains(rocks, finalSandsPositions, sandPosition.with(-1, 1))) {
                     sandPosition = sandPosition.with(-1, 1);
-                } else if (!sandAndRocks.contains(sandPosition.with(1, 1))) {
+                } else if (!sandOrRocksPositionsContains(rocks, finalSandsPositions, sandPosition.with(1, 1))) {
                     sandPosition = sandPosition.with(1, 1);
                 } else {
                     finalSandsPositions.add(sandPosition);
@@ -52,18 +48,17 @@ public class RegolithReservoir {
 
         Point sandPosition = STARTING_POINT;
 
+
         while (true) {
-            Set<Point> sandAndRocks = sandAndRocksPositions(rocks, finalSandsPositions);
-            if(sandAndRocks.contains(sandPosition.with(0, 1)) || sandPosition.y + 1 == minYPoint.y + 2) {
-                if (!sandAndRocks.contains(sandPosition.with(-1, 1)) && sandPosition.y + 1 != minYPoint.y + 2) {
+            if (sandOrRocksPositionsContains(rocks, finalSandsPositions, sandPosition.with(0, 1)) || sandPosition.y + 1 == minYPoint.y + 2) {
+                if (!sandOrRocksPositionsContains(rocks, finalSandsPositions, sandPosition.with(-1, 1)) && sandPosition.y + 1 != minYPoint.y + 2) {
                     sandPosition = sandPosition.with(-1, 1);
-                } else if (!sandAndRocks.contains(sandPosition.with(1, 1)) && sandPosition.y + 1 != minYPoint.y + 2) {
+                } else if (!sandOrRocksPositionsContains(rocks, finalSandsPositions, sandPosition.with(1, 1)) && sandPosition.y + 1 != minYPoint.y + 2) {
                     sandPosition = sandPosition.with(1, 1);
                 } else {
                     finalSandsPositions.add(sandPosition);
                     if (sandPosition.equals(STARTING_POINT))
                         break;
-                    System.out.println("sand position" +sandPosition);
                     sandPosition = STARTING_POINT;
                 }
             } else {
@@ -73,8 +68,8 @@ public class RegolithReservoir {
         return finalSandsPositions.size();
     }
 
-    Set<Point> sandAndRocksPositions(Set<Point> rocks, Set<Point> sands) {
-        return concat(rocks.stream(), sands.stream()).collect(Collectors.toSet());
+    boolean sandOrRocksPositionsContains(Set<Point> rocks, Set<Point> sands, Point point) {
+        return rocks.contains(point) || sands.contains(point);
     }
 
     record Line(

@@ -30,7 +30,7 @@ class Day14Spec extends Specification{
         when:
         def howManySands = regolithReservoir.howManySandCanFallDownBeforeGoToEndlessWorld(lines)
         then:
-        howManySands == 24
+        howManySands == 779
     }
 
     def 'should simulate with floor'() {
@@ -46,7 +46,6 @@ class Day14Spec extends Specification{
         howManySands == 93
     }
 
-    @Ignore
     def 'task solution part2'() {
         given:
         Input input = new FileInput('day14.txt')
@@ -54,6 +53,6 @@ class Day14Spec extends Specification{
         when:
         def howManySands = regolithReservoir.howManySandCanFallDownBeforeGoToFloor(lines)
         then:
-        howManySands == 24
+        howManySands == 27426
     }
 }
