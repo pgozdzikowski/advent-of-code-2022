@@ -44,8 +44,6 @@ public class PyroclasticFlow {
         }
     }
 
-    ;
-
     enum Move {
         LEFT('<', -1), RIGHT('>', 1);
         char symbol;
