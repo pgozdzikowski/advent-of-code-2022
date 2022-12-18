@@ -85,7 +85,7 @@ public class DistressSignal {
     static sealed class Holder implements Comparable<Holder> permits IntegerHolder, ListHolder {
         @Override
         public int compareTo(Holder other) {
-            if(this == other)
+            if(this.equals(other))
                 return 0;
 
             SignalPair signalPair = new SignalPair(this, other);

@@ -33,6 +33,6 @@ class Day15Spec extends Specification {
         given:
         Input input = new FileInput('day15.txt')
         expect:
-        56000011L == beaconExclusionZone.calculateTuningFrequency(input.get(), 4000_000)
+        12625383204261L == beaconExclusionZone.calculateTuningFrequency(input.get(), 4000_000)
     }
 }
